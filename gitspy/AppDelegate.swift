@@ -32,12 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             authController?.exchangeCodeForAccessToken(withURL: url,
                 failure: { (error) -> Void in
                     print("Error retrieving access token")
-                }) { (token) -> Void in
-                    let message = "retrieved access token: " + token
-                    let alertController = UIAlertController(title: "☺", message: message, preferredStyle: .Alert)
-                    let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                    alertController.addAction(action)
-                    self.window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+                }) { (token) -> Void in                    
+                    let service = StatsService()
+                    service.stats("joanromano", repoId: "CADRACSwippableCell")
             }
             
             return true
