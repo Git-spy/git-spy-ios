@@ -8,6 +8,10 @@
 
 import Foundation
 
+private enum OAuthError: ErrorType {
+    case TokenRequest
+}
+
 class GitHubOAuthController {
     
     private let clientId : String
@@ -26,43 +30,72 @@ class GitHubOAuthController {
         self.scope = scope
     }
     
-    func exchangeCodeForAccessToken(withURL url: NSURL, success: (token: String, raw: NSDictionary) -> Void){
+    func exchangeCodeForAccessToken(withURL url: NSURL, failure: (error: NSError?) -> Void, success: (token: String) -> Void) {
+        do {
+            let JSONDDataParams = try dataParams(forURL: url)
+            let accessTokenRequest: NSURLRequest = request(forJSONData: JSONDDataParams)
+            let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
+            let task = session.dataTaskWithRequest(accessTokenRequest, completionHandler: { (data, response: NSURLResponse?, error) -> Void in
+                do {
+                    try self.handleData(data, response: response, error: error, success: success)
+                } catch let error as NSError {
+                    failure(error: error)
+                } catch OAuthError.TokenRequest {
+                    failure(error: nil)
+                }
+            })
+            
+            task.resume()
+        } catch {
+            failure(error: nil)
+        }
+    }
+    
+    // MARK: Private
+    
+    private func dataParams(forURL url: NSURL) throws -> NSData {
         let match: String = "?code="
         let range: Range = url.absoluteString.rangeOfString(match)!
         let code = url.absoluteString.substringFromIndex(range.startIndex.advancedBy(match.characters.count))
-        let params = ["code" : code, "client_id" : clientId, "client_secret" : clientSecret, "grant_type" : "authorization_code"]
+        let paramDict = ["code" : code,
+                         "client_id" : clientId,
+                         "client_secret" : clientSecret,
+                         "grant_type" : "authorization_code"]
+        
+        return try NSJSONSerialization.dataWithJSONObject(paramDict as AnyObject, options: .PrettyPrinted)
+    }
+    
+    private func request(forJSONData data: NSData) -> NSURLRequest {
+        let url = NSURL(string: "https://github.com/login/oauth/access_token")!
+        let request: NSMutableURLRequest = NSMutableURLRequest(URL: url)
+        
+        request.HTTPMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(String(data.length), forHTTPHeaderField: "Content-Length")
+        request.HTTPBody = data
+        
+        return request.copy() as! NSURLRequest
+    }
+    
+    private func handleData(data: NSData?, response: NSURLResponse?, error: NSError?, success: (token: String) -> Void) throws {
+        let indexSet = NSIndexSet(indexesInRange: NSRange(location: 200, length: 99));
+        let httpResponse = response as! NSHTTPURLResponse
+        let statusCode =  httpResponse.statusCode
+        
+        guard let data = data where indexSet.containsIndex(statusCode) else {
+            throw OAuthError.TokenRequest
+        }
         
         do {
-            let jsonData = try NSJSONSerialization.dataWithJSONObject(params as AnyObject, options: .PrettyPrinted)
-            let theUrl = NSURL(string: "https://github.com/login/oauth/access_token")!
-            let request: NSMutableURLRequest = NSMutableURLRequest(URL: theUrl)
-            request.HTTPMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Accept")
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue(String(jsonData.length), forHTTPHeaderField: "Content-Length")
-            request.HTTPBody = jsonData
-            
-            let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
-            let task = session.dataTaskWithRequest(request, completionHandler: { (data, response: NSURLResponse?, error) -> Void in
-                if let data = data {
-                    let indexSet = NSIndexSet(indexesInRange: NSRange(location: 200, length: 99));
-                    let httpResponse = response as! NSHTTPURLResponse
-                    let statusCode =  httpResponse.statusCode
-                    if indexSet.containsIndex(statusCode) {
-                        do {
-                            let dictionary = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-                            if let accessToken = dictionary["access_token"] {
-                                success(token: accessToken as! String, raw: dictionary)
-                            }
-                        } catch {
-                            
-                        }
-                    }
-                }
-            })
-            task.resume()
+            let dictionary = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+            if let accessToken = dictionary["access_token"] as? String {
+                success(token: accessToken)
+            } else {
+                throw OAuthError.TokenRequest
+            }
         } catch {
-            
+            throw OAuthError.TokenRequest
         }
     }
 }
