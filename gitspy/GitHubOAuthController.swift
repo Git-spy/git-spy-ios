@@ -12,7 +12,7 @@ private enum OAuthError: ErrorType {
     case TokenRequest
 }
 
-class GitHubOAuthController {
+class GitHubOAuthController: OAuth {
     
     private let clientId : String
     private let clientSecret : String

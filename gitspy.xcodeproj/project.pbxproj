@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8B33B5631BEF66EE007C0728 /* GitHubOAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B33B5621BEF66EE007C0728 /* GitHubOAuthController.swift */; };
+		8B33B5651BEFA39C007C0728 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B33B5641BEFA39C007C0728 /* OAuth.swift */; };
 		8BF5A0D21BCAF97000362076 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5A0D11BCAF97000362076 /* AppDelegate.swift */; };
 		8BF5A0D41BCAF97000362076 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5A0D31BCAF97000362076 /* LoginViewController.swift */; };
 		8BF5A0D71BCAF97000362076 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF5A0D51BCAF97000362076 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		8B33B5621BEF66EE007C0728 /* GitHubOAuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubOAuthController.swift; sourceTree = "<group>"; };
+		8B33B5641BEFA39C007C0728 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		8BF5A0CE1BCAF97000362076 /* gitspy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gitspy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF5A0D11BCAF97000362076 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BF5A0D31BCAF97000362076 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				8BF5A0D51BCAF97000362076 /* Main.storyboard */,
 				8BF5A0D31BCAF97000362076 /* LoginViewController.swift */,
 				8B33B5621BEF66EE007C0728 /* GitHubOAuthController.swift */,
+				8B33B5641BEFA39C007C0728 /* OAuth.swift */,
 			);
 			path = gitspy;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				8BF5A0D41BCAF97000362076 /* LoginViewController.swift in Sources */,
 				8B33B5631BEF66EE007C0728 /* GitHubOAuthController.swift in Sources */,
 				8BF5A0D21BCAF97000362076 /* AppDelegate.swift in Sources */,
+				8B33B5651BEFA39C007C0728 /* OAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
