@@ -8,10 +8,10 @@
 
 import Foundation
 
-class StatsAPI {
+class RepositoryAPI {
     
-    func json(userId: String, repoId: String, completion: (data: NSData) -> Void) {
-        let request = NSURLRequest(URL: NSURL(string: "http://desolate-fjord-2415.herokuapp.com/stats?user_id=" + userId + "&repo_id=" + repoId)!)
+    func json(userId: String, completion: (data: NSData) -> Void) {
+        let request = NSURLRequest(URL: NSURL(string: "http://gitspy.herokuapp.com/repos?user_id=" + userId)!)
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
         let task = session.dataTaskWithRequest(request, completionHandler: { (data, response: NSURLResponse?, error) -> Void in
             if let data = data {

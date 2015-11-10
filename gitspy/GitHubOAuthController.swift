@@ -32,8 +32,8 @@ class GitHubOAuthController: OAuth {
     
     func exchangeCodeForAccessToken(withURL url: NSURL, failure: (error: NSError?) -> Void, success: (token: String) -> Void) {
         do {
-            let JSONDDataParams = try dataParams(forURL: url)
-            let accessTokenRequest: NSURLRequest = request(forJSONData: JSONDDataParams)
+            let JSONDataParams = try dataParams(forURL: url)
+            let accessTokenRequest: NSURLRequest = request(forJSONData: JSONDataParams)
             let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
             let task = session.dataTaskWithRequest(accessTokenRequest, completionHandler: { (data, response: NSURLResponse?, error) -> Void in
                 do {

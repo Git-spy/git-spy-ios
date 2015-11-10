@@ -33,8 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 failure: { (error) -> Void in
                     print("Error retrieving access token")
                 }) { (token) -> Void in                    
-                    let service = StatsService()
-                    service.stats("joanromano", repoId: "CADRACSwippableCell")
+                    let service = RepositoryService()
+                    service.stats("joanromano")
             }
             
             return true
