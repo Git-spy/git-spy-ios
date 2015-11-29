@@ -1,5 +1,5 @@
 //
-//  StatsParser.swift
+//  RepositoryParser.swift
 //  gitspy
 //
 //  Created by Joan Romano on 08/11/15.
@@ -14,7 +14,7 @@ class RepositoryParser {
         var reposArray: [Repository]? = []
         do {
             let dictionary = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments) as! [String: AnyObject]
-            
+
             if let repositories = dictionary["repos"] as? [[String: AnyObject]] {
                 for repository in repositories {
                     if let description = repository["description"] as? String,

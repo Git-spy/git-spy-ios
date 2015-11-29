@@ -1,5 +1,5 @@
 //
-//  StatsService.swift
+//  RepositoryService.swift
 //  gitspy
 //
 //  Created by Joan Romano on 08/11/15.
@@ -18,9 +18,9 @@ class RepositoryService {
         self.parser = parser
     }
     
-    func stats(userId: String){
+    func repos(userId: String, completion: (parsedRepos: [Repository]?) -> Void){
         api.json(userId) { (data) -> Void in
-            print(self.parser.parse(data)) 
+            completion(parsedRepos: self.parser.parse(data))
         }
     }
 }

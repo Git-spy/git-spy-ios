@@ -1,5 +1,5 @@
 //
-//  GitRepository.swift
+//  Repository.swift
 //  gitspy
 //
 //  Created by Joan Romano on 10/11/15.

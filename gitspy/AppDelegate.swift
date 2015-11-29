@@ -33,8 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 failure: { (error) -> Void in
                     print("Error retrieving access token")
                 }) { (token) -> Void in                    
-                    let service = RepositoryService()
-                    service.stats("joanromano")
+                    Networker.sharedInstance.token = token
+                    let service = MeService()
+                    service.me(token) { (parsedUser) -> Void in
+                        self.window?.rootViewController?.performSegueWithIdentifier("showSearchRepos", sender: self.window?.rootViewController)
+                    }
             }
             
             return true
