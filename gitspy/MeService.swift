@@ -10,18 +10,15 @@ import Foundation
 
 class MeService {
 
-    let api: MeAPI
     let parser: MeParser
     
-    init(api: MeAPI = MeAPI(), parser: MeParser = MeParser()) {
-        self.api = api
+    init(parser: MeParser = MeParser()) {
         self.parser = parser
     }
     
     func me(token: String, completion: (parsedUser: User?) -> Void){
-        api.json(token) { (data) -> Void in
-            completion(parsedUser: self.parser.parse(data))
-        }
+        let userResource: Resource<User> = Resource(pathComponent: "me", parse: self.parser.parse)
+        Networker.sharedInstance.loadResouce(userResource, callback: completion)
     }
     
 }

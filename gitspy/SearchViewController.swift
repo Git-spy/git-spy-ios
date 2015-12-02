@@ -27,6 +27,14 @@ class SearchViewController: UIViewController {
         return cell
     }
     
+    // MARK: UICollectionViewDelegate
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        service.whatch((repos?[indexPath.item].id)!) { status in
+            print(status)
+        }
+    }
+    
     // MARK: UITextFieldDelegate
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {

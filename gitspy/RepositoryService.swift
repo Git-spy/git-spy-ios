@@ -10,17 +10,19 @@ import Foundation
 
 class RepositoryService {
     
-    let api: RepositoryAPI
     let parser: RepositoryParser
     
-    init(api: RepositoryAPI = RepositoryAPI(), parser: RepositoryParser = RepositoryParser()) {
-        self.api = api
+    init(parser: RepositoryParser = RepositoryParser()) {
         self.parser = parser
     }
     
     func repos(userId: String, completion: (parsedRepos: [Repository]?) -> Void){
-        api.json(userId) { (data) -> Void in
-            completion(parsedRepos: self.parser.parse(data))
-        }
+        let userResource: Resource<[Repository]> = Resource(pathComponent: "repos?user_id=" + userId, parse: self.parser.parse)
+        Networker.sharedInstance.loadResouce(userResource, callback: completion)
+    }
+    
+    func whatch(repoId: Int, completion: (status: Bool?) -> Void) {
+        let boolResource: Resource<Bool> = Resource(pathComponent: "repos/" + String(repoId), parse: self.parser.parse, method: "POST")
+        Networker.sharedInstance.loadResouce(boolResource, callback: completion)
     }
 }
