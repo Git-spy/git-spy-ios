@@ -10,7 +10,10 @@ import UIKit
 
 class RepositoryCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var repositoryTitleLabel: UILabel!
+    @IBOutlet private weak var repositoryTitleLabel: UILabel!
     
+    func setRepository(repository: Repository?) {
+        repositoryTitleLabel.text = repository?.name
+    }
     
 }

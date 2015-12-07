@@ -11,11 +11,7 @@
 		8B21DC081BF2A67000F48B8C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B21DC071BF2A67000F48B8C /* SearchViewController.swift */; };
 		8B33B5631BEF66EE007C0728 /* GitHubOAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B33B5621BEF66EE007C0728 /* GitHubOAuthController.swift */; };
 		8B33B5651BEFA39C007C0728 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B33B5641BEFA39C007C0728 /* OAuth.swift */; };
-		8B33B5671BEFA664007C0728 /* RepositoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B33B5661BEFA664007C0728 /* RepositoryService.swift */; };
-		8B33B56B1BEFAA76007C0728 /* RepositoryParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B33B56A1BEFAA76007C0728 /* RepositoryParser.swift */; };
 		8BDADB3D1C0B36D90033273D /* RepositoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDADB3C1C0B36D90033273D /* RepositoryCollectionViewCell.swift */; };
-		8BDADB411C0B3DEC0033273D /* MeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDADB401C0B3DEC0033273D /* MeService.swift */; };
-		8BDADB431C0B3EE00033273D /* MeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDADB421C0B3EE00033273D /* MeParser.swift */; };
 		8BDADB451C0B3F300033273D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDADB441C0B3F300033273D /* User.swift */; };
 		8BDADB491C0B4A700033273D /* Networker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDADB481C0B4A700033273D /* Networker.swift */; };
 		8BDADB4D1C0B7A8A0033273D /* Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDADB4C1C0B7A8A0033273D /* Parseable.swift */; };
@@ -51,11 +47,7 @@
 		8B21DC071BF2A67000F48B8C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8B33B5621BEF66EE007C0728 /* GitHubOAuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubOAuthController.swift; sourceTree = "<group>"; };
 		8B33B5641BEFA39C007C0728 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
-		8B33B5661BEFA664007C0728 /* RepositoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryService.swift; sourceTree = "<group>"; };
-		8B33B56A1BEFAA76007C0728 /* RepositoryParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryParser.swift; sourceTree = "<group>"; };
 		8BDADB3C1C0B36D90033273D /* RepositoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryCollectionViewCell.swift; sourceTree = "<group>"; };
-		8BDADB401C0B3DEC0033273D /* MeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeService.swift; sourceTree = "<group>"; };
-		8BDADB421C0B3EE00033273D /* MeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeParser.swift; sourceTree = "<group>"; };
 		8BDADB441C0B3F300033273D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8BDADB481C0B4A700033273D /* Networker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networker.swift; sourceTree = "<group>"; };
 		8BDADB4C1C0B7A8A0033273D /* Parseable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parseable.swift; sourceTree = "<group>"; };
@@ -105,8 +97,6 @@
 			children = (
 				8B21DC051BF2996400F48B8C /* Repository.swift */,
 				8BDADB3C1C0B36D90033273D /* RepositoryCollectionViewCell.swift */,
-				8B33B56A1BEFAA76007C0728 /* RepositoryParser.swift */,
-				8B33B5661BEFA664007C0728 /* RepositoryService.swift */,
 			);
 			name = Repository;
 			sourceTree = "<group>";
@@ -122,8 +112,6 @@
 		8BDADB3F1C0B3DDD0033273D /* Me */ = {
 			isa = PBXGroup;
 			children = (
-				8BDADB421C0B3EE00033273D /* MeParser.swift */,
-				8BDADB401C0B3DEC0033273D /* MeService.swift */,
 				8BDADB441C0B3F300033273D /* User.swift */,
 			);
 			name = Me;
@@ -180,11 +168,11 @@
 			isa = PBXGroup;
 			children = (
 				8BF5A0D11BCAF97000362076 /* AppDelegate.swift */,
+				8BF5A0D51BCAF97000362076 /* Main.storyboard */,
 				8BF5A0D81BCAF97000362076 /* Assets.xcassets */,
 				8BF5A0DD1BCAF97000362076 /* Info.plist */,
 				8BF5A0DA1BCAF97000362076 /* LaunchScreen.storyboard */,
 				8BDADB4B1C0B7A620033273D /* Login */,
-				8BF5A0D51BCAF97000362076 /* Main.storyboard */,
 				8BDADB3F1C0B3DDD0033273D /* Me */,
 				8BDADB4E1C0B7AC30033273D /* Network */,
 				8BDADB4A1C0B7A4D0033273D /* OAuth */,
@@ -343,13 +331,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BDADB451C0B3F300033273D /* User.swift in Sources */,
-				8B33B56B1BEFAA76007C0728 /* RepositoryParser.swift in Sources */,
 				8B21DC061BF2996400F48B8C /* Repository.swift in Sources */,
 				8B21DC081BF2A67000F48B8C /* SearchViewController.swift in Sources */,
 				8BDADB491C0B4A700033273D /* Networker.swift in Sources */,
-				8BDADB431C0B3EE00033273D /* MeParser.swift in Sources */,
-				8BDADB411C0B3DEC0033273D /* MeService.swift in Sources */,
-				8B33B5671BEFA664007C0728 /* RepositoryService.swift in Sources */,
 				8BDADB4D1C0B7A8A0033273D /* Parseable.swift in Sources */,
 				8BF5A0D41BCAF97000362076 /* LoginViewController.swift in Sources */,
 				8B33B5631BEF66EE007C0728 /* GitHubOAuthController.swift in Sources */,

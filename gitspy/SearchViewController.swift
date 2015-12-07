@@ -10,9 +10,8 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
-    let service = RepositoryService()
-    var repos: [Repository]?
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    private var repos: [Repository]?
     
     // MARK: UICollectionViewDataSource
     
@@ -22,7 +21,7 @@ class SearchViewController: UIViewController {
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("repositoryCell", forIndexPath: indexPath) as! RepositoryCollectionViewCell
-        cell.repositoryTitleLabel.text = repos?[indexPath.item].name
+        cell.setRepository(repos?[indexPath.item])
         
         return cell
     }
@@ -30,7 +29,7 @@ class SearchViewController: UIViewController {
     // MARK: UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        service.whatch((repos?[indexPath.item].id)!) { status in
+        Repository.watch((repos?[indexPath.item].id)!) { status in
             print(status)
         }
     }
@@ -43,7 +42,7 @@ class SearchViewController: UIViewController {
             let end = start.advancedBy(range.length)
             let finalText = text.stringByReplacingCharactersInRange(Range(start: start, end: end), withString: string)
             
-            service.repos(finalText){ (parsedRepos) -> Void in
+            Repository.repos(finalText){ (parsedRepos) -> Void in
                 self.repos = parsedRepos
                 self.collectionView.reloadData()
             }

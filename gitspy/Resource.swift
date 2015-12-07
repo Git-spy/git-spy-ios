@@ -8,15 +8,16 @@
 
 import Foundation
 
-struct Resource<A> {
+struct Resource<T> {
+    
     let pathComponent: String
-    let parse: AnyObject -> A?
+    let parse: AnyObject -> T?
     let method: String
     var data: [String: AnyObject]? = nil
     
-    init(pathComponent: String, parse: AnyObject -> A?, method: String = "GET") {
+    init(pathComponent: String, method: String = "GET", parse: AnyObject -> T?) {
         self.pathComponent = pathComponent
-        self.parse = parse
         self.method = method
+        self.parse = parse
     }
 }

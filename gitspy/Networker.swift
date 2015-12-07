@@ -9,6 +9,7 @@
 import Foundation
 
 class Networker {
+    
     static let sharedInstance = Networker()
     
     let networkerURL = NSURL(string: "http://192.168.0.5:8080/")!
@@ -21,9 +22,14 @@ class Networker {
         }
     }
     
-    func loadResouce<A>(resource: Resource<A>, callback: A? -> ()) {
+    func loadResource<T>(resource: Resource<T>, callback: T? -> ()) {
         var task: NSURLSessionTask?
-        let resourceURL = NSURL(string: resource.pathComponent, relativeToURL: networkerURL)!
+        guard let resourceURL = NSURL(string: resource.pathComponent, relativeToURL: networkerURL) else {
+            assert(false, "Failed to initialize URL")
+            callback(nil)
+            return
+        }
+        
         let handler: (NSData?, NSURLResponse?, NSError?) -> Void = { data, response, error in
             let json = data.flatMap {try? NSJSONSerialization.JSONObjectWithData($0, options: .AllowFragments)}
             let value = json.flatMap(resource.parse)
