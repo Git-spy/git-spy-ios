@@ -124,6 +124,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="collectionView" destination="yfc-dT-mju" id="CXF-T5-rLX"/>
+                        <outlet property="textField" destination="Rxh-jD-bwG" id="27x-Sw-y3b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N6V-R8-oY9" userLabel="First Responder" sceneMemberID="firstResponder"/>

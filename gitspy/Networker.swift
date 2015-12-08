@@ -12,7 +12,7 @@ class Networker {
     
     static let sharedInstance = Networker()
     
-    let networkerURL = NSURL(string: "http://192.168.0.5:8080/")!
+    let networkerURL = NSURL(string: "http://gitspy.herokuapp.com")!
     var session: NSURLSession?
     var token: String? {
         didSet {
@@ -25,7 +25,7 @@ class Networker {
     func loadResource<T>(resource: Resource<T>, callback: T? -> ()) {
         var task: NSURLSessionTask?
         guard let resourceURL = NSURL(string: resource.pathComponent, relativeToURL: networkerURL) else {
-            assert(false, "Failed to initialize URL")
+            assert(false, "Failed to initialize URL \(resource.pathComponent.debugDescription)")
             callback(nil)
             return
         }
