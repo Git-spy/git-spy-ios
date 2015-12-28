@@ -40,8 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }) { (token) -> Void in                    
                 Networker.sharedInstance.token = token
                 
-            User.me(token) { (user) -> Void in
-                self.window?.rootViewController?.performSegueWithIdentifier("showSearchRepos", sender: self.window?.rootViewController)
+                User.me(token) { (user) -> Void in
+                    self.window?.rootViewController?.performSegueWithIdentifier("showSearchRepos", sender: self.window?.rootViewController)
             }
         }
             

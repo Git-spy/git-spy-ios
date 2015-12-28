@@ -23,6 +23,7 @@ class SearchViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldTextDidChange", name: UITextFieldTextDidChangeNotification, object: textField)
     }
+    
     // MARK: UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -31,7 +32,13 @@ class SearchViewController: UIViewController {
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("repositoryCell", forIndexPath: indexPath) as! RepositoryCollectionViewCell
-        cell.setRepository(repos?[indexPath.item])
+        
+        guard let repo = repos?[indexPath.item] else {
+            return cell
+        }
+        
+        cell.repositoryTitle = repo.name
+        cell.selected = repo.watching
         
         return cell
     }
@@ -39,8 +46,17 @@ class SearchViewController: UIViewController {
     // MARK: UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        Repository.watch((repos?[indexPath.item].id)!) { status in
-            print(status)
+        guard let repoId = repos?[indexPath.item].id else {
+            return
+        }
+        
+        Repository.watch(repoId) { status in
+            guard let status = status else {
+                return
+            }
+            
+            self.repos?[indexPath.item].watching = status
+            collectionView.reloadItemsAtIndexPaths([indexPath])
         }
     }
     

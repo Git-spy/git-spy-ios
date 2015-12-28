@@ -13,7 +13,6 @@ struct Resource<T> {
     let pathComponent: String
     let parse: AnyObject -> T?
     let method: String
-    var data: [String: AnyObject]? = nil
     
     init(pathComponent: String, method: String = "GET", parse: AnyObject -> T?) {
         self.pathComponent = pathComponent

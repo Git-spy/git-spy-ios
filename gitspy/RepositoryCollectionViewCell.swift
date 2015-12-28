@@ -12,8 +12,19 @@ class RepositoryCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet private weak var repositoryTitleLabel: UILabel!
     
-    func setRepository(repository: Repository?) {
-        repositoryTitleLabel.text = repository?.name
+    var repositoryTitle: String? {
+        get {
+            return repositoryTitleLabel.text
+        }
+        set {
+            repositoryTitleLabel.text = newValue
+        }
     }
     
+    override var selected: Bool {
+        didSet {
+            backgroundColor = selected ? UIColor.grayColor() : UIColor.whiteColor()
+        }
+    }
+
 }
