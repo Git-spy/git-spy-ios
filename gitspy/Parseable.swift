@@ -9,7 +9,18 @@
 import Foundation
 
 protocol Parseable {
-    typealias A
-    func parse(data: AnyObject) -> A?
+    init?(dictionary: [String: AnyObject])
+    init?(data: AnyObject)
 }
 
+extension Parseable {
+    
+    init?(data: AnyObject) {
+        guard let dictionary = data as? [String: AnyObject] else {
+            return nil
+        }
+        
+        self.init(dictionary: dictionary)
+    }
+
+}

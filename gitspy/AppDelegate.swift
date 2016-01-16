@@ -12,39 +12,40 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var authController: GitHubOAuthController?
-
+    
+    private lazy var authController = GitHubOAuthController(clientId: "dd92a69106cd26997822", clientSecret: "676e90124a6e741be269a6ed6407948dc99a250a", redirectUri: "GitSpy://token", scope: "user+notifications+repo")
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        authController = GitHubOAuthController(clientId: "dd92a69106cd26997822", clientSecret: "676e90124a6e741be269a6ed6407948dc99a250a", redirectUri: "GitSpy://token", scope: "user+notifications+repo");
-        let viewController = window?.rootViewController as! LoginViewController
-        viewController.authUrl = authController?.authUrl
         
+        guard let rootViewController = window?.rootViewController as? LoginViewController else {
+            assert(false, "rootViewController shouldn't be nil")
+        }
+        
+        rootViewController.authUrl = authController.authUrl
         
         return true
     }
 
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        let source = options[UIApplicationOpenURLOptionsSourceApplicationKey] as! String
-        window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
         
-        if source == "com.apple.SafariViewService" {
-            authController?.exchangeCodeForAccessToken(withURL: url,
-                failure: { (error) -> Void in
-                    print("Error retrieving access token")
-                }) { (token) -> Void in                    
-                    Networker.sharedInstance.token = token
-                    let service = MeService()
-                    service.me(token) { (parsedUser) -> Void in
-                        self.window?.rootViewController?.performSegueWithIdentifier("showSearchRepos", sender: self.window?.rootViewController)
-                    }
-            }
-            
-            return true
+        guard let source = options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String where source == "com.apple.SafariViewService" else {
+            return false
         }
         
-        
-        return false
+        window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+
+        authController.exchangeCodeForAccessToken(withURL: url,
+            failure: { (error) -> Void in
+                print("Error retrieving access token")
+            }) { (token) -> Void in                    
+                Networker.sharedInstance.token = token
+                
+                User.me(token) { (user) -> Void in
+                    self.window?.rootViewController?.performSegueWithIdentifier("showSearchRepos", sender: self.window?.rootViewController)
+            }
+        }
+            
+        return true
     }
 }
 
